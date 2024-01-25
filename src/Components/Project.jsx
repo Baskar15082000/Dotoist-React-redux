@@ -5,7 +5,7 @@ import { Button, Dropdown } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import AddProjectModal from "./AddProjectModal";
 import ProjectPopUp from "./ProjectPopUp";
-import { PiPlaceholder } from "react-icons/pi";
+
 
 const Project = ({ project }) => {
   const [ishover, setIshover] = useState(false);
@@ -18,7 +18,7 @@ const Project = ({ project }) => {
   const alignStyle = {
     width: "50rem",
     textAlign: "start",
-    paddingBottom: ".5rem",
+    paddingBottom: "1rem",
   };
   const projectListStyleOnHover = {
     backgroundColor: "#faf8f7",
@@ -33,10 +33,15 @@ const Project = ({ project }) => {
 
   return (
     <div style={projectstyle}>
-      <div style={alignStyle}>My Projects</div>
+      <div style={{ ...alignStyle, fontSize: "1.6rem", fontWeight: "700" }}>
+        My Projects
+      </div>
       <div style={{ ...alignStyle, color: "#666" }}>Free plan</div>
       <div style={alignStyle}>
-        <Input prefix={<CiSearch />} placeholder="Search projects" />
+        <Input
+          prefix={<CiSearch style={{ fontSize: "1.5rem", color: "#666" }} />}
+          placeholder="Search projects"
+        />
       </div>
       <div className="btn_div" style={alignStyle}>
         <select
@@ -54,7 +59,9 @@ const Project = ({ project }) => {
 
         <AddProjectModal />
       </div>
-      <div style={alignStyle}>{project.length + " "}projects</div>
+      <div style={{ ...alignStyle, fontWeight: "700" }}>
+        {project.length + " "}projects
+      </div>
       <div>
         {project.map((e) => {
           return (
@@ -74,7 +81,7 @@ const Project = ({ project }) => {
               }}
             >
               <div style={{ padding: "1rem" }}>{"# " + e.name}</div>
-              <div>{ishover === e.id && <ProjectPopUp projectId={e.id} />}</div>
+              <div>{ishover === e.id && <ProjectPopUp projectId={e.id} projectName={e.name} />}</div>
             </div>
           );
         })}

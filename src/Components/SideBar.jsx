@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sider from "antd/es/layout/Sider";
-import { Menu } from "antd";
+import { Button, Menu } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import { fetchProjects } from "../api";
 import { getProjects } from "../features/projectSlice";
@@ -34,6 +34,7 @@ const SideBar = ({ onclick }) => {
           },
         ]}
       />
+
       <div>
         <Menu
           style={{ backgroundColor: "#faf8f7" }}
@@ -47,6 +48,7 @@ const SideBar = ({ onclick }) => {
               children: getchild(),
             },
           ]}
+          
         />
       </div>
     </Sider>

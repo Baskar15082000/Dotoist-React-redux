@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { Popover } from "antd";
-import { Button } from "antd";
+import { v4 as uuidv4 } from "uuid";
 import { PiDotsThreeOutlineThin } from "react-icons/pi";
 import { deleteProjectApi } from "../api";
 import { useDispatch } from "react-redux";
 import { deleteProject } from "../features/projectSlice";
+import EditProjectPopUp from "./EditProjectPopUp";
 
-const ProjectPopUp = ({ projectId }) => {
+const ProjectPopUp = ({ projectId, projectName }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const content = (
     <div style={{ color: "black" }}>
-      <p>Edit</p>
+      <EditProjectPopUp projectId={projectId} projectName={projectName} />
       <p onClick={() => handleDelete(projectId)}>Delete</p>
       <p>add to favorites</p>
     </div>

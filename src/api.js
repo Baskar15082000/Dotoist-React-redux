@@ -32,12 +32,33 @@ export async function addProject(name) {
 
   return res;
 }
-export async function deleteProjectApi(id){
+export async function deleteProjectApi(id) {
   const res = await axios
-    .delete("https://api.todoist.com/rest/v2/projects/"+id, {
+    .delete("https://api.todoist.com/rest/v2/projects/" + id, {
       headers: "Authorization: Bearer 8a59fd10edc3e15c09e8d0f90cf4bf77f1d129e5",
     })
     .then((res) => res.status)
     .catch((err) => console.log(err));
   return res;
-};
+}
+
+export async function editProjectApi(id, name) {
+  console.log(id, name);
+  const res = await axios
+    .post(
+      "https://api.todoist.com/rest/v2/projects/" + id,
+      {
+        name: name,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Request-Id": uuidv4(),
+          Authorization: " Bearer 8a59fd10edc3e15c09e8d0f90cf4bf77f1d129e5",
+        },
+      }
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+}
