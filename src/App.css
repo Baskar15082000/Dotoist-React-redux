@@ -1,0 +1,13 @@
+.btn_div {
+  display: flex;
+  width: 50rem;
+  justify-content: space-between;
+}
+.projectlist {
+  display: flex;
+  width: 50rem;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 20px;
+  cursor: pointer;
+}
