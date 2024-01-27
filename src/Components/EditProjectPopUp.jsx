@@ -5,13 +5,17 @@ import { Switch } from "antd";
 import { editProject } from "../features/projectSlice";
 import { editProjectApi } from "../api";
 import { useDispatch } from "react-redux";
-const EditProjectPopUp = ({ projectName, projectId }) => {
+const EditProjectPopUp = ({ projectName, projectId, hide }) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editProjectName, setEdidProjectName] = useState(projectName);
 
   const showModal = () => {
+    // console.log("i am ");
     setIsModalOpen(true);
+    setTimeout(() => {
+      hide();
+    }, 170);
   };
 
   const handleCancel = () => {
@@ -38,9 +42,14 @@ const EditProjectPopUp = ({ projectName, projectId }) => {
   };
   return (
     <>
-      <div onClick={showModal}>
-        <div>Edit</div>
-      </div>
+      <Button
+        style={{ padding: "0", border: "none" }}
+        onClick={() => {
+          showModal();
+        }}
+      >
+        Edit
+      </Button>
       <Modal
         title="Add project"
         open={isModalOpen}

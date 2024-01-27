@@ -4,31 +4,19 @@ import { Input } from "antd";
 import { Button, Dropdown } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import AddProjectModal from "./AddProjectModal";
-import ProjectPopUp from "./ProjectPopUp";
 
+import ProjectList from "./ProjectList";
 
 const Project = ({ project }) => {
-  const [ishover, setIshover] = useState(false);
-  const projectstyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  };
-  const [click, setClick] = useState(false);
   const alignStyle = {
     width: "50rem",
     textAlign: "start",
     paddingBottom: "1rem",
   };
-  const projectListStyleOnHover = {
-    backgroundColor: "#faf8f7",
-    margin: ".5rem",
-    borderRadius: "5px",
-  };
-  const projectListStyle = {
-    backgroundColor: "white",
-    margin: ".5rem",
-    borderRadius: "5px",
+  const projectstyle = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   };
 
   return (
@@ -57,35 +45,12 @@ const Project = ({ project }) => {
           <option style={{ fontSize: "1rem" }}>Archived Project</option>
         </select>
 
-        <AddProjectModal />
+        <AddProjectModal isside={false} />
       </div>
       <div style={{ ...alignStyle, fontWeight: "700" }}>
         {project.length + " "}projects
       </div>
-      <div>
-        {project.map((e) => {
-          return (
-            <div
-              className="projectlist"
-              style={
-                e.id === ishover ? projectListStyleOnHover : projectListStyle
-              }
-              key={e.id}
-              onMouseOver={() => {
-                setIshover(e.id);
-                setClick(true);
-              }}
-              onMouseLeave={() => {
-                setIshover(!e.id);
-                setClick(false);
-              }}
-            >
-              <div style={{ padding: "1rem" }}>{"# " + e.name}</div>
-              <div>{ishover === e.id && <ProjectPopUp projectId={e.id} projectName={e.name} />}</div>
-            </div>
-          );
-        })}
-      </div>
+      <ProjectList project={project} isside={false} />
     </div>
   );
 };

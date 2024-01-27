@@ -5,7 +5,7 @@ import { Switch } from "antd";
 import { addNewProject } from "../features/projectSlice";
 import { addProject } from "../api";
 import { useDispatch } from "react-redux";
-const AddProjectModal = () => {
+const AddProjectModal = ({ isside }) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [projectName, setProjectName] = useState("");
@@ -36,14 +36,33 @@ const AddProjectModal = () => {
   };
   return (
     <>
-      <div
-        onClick={showModal}
-        style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
-      >
-        <div style={{ color: "#666", fontSize: "1.6rem" }}>+</div>{" "}
-        <div style={{ fontSize: ".8rem", paddingLeft: ".5rem" }}>
-          Add project
-        </div>
+      <div onClick={showModal}>
+        <button
+          style={{
+            display: "flex",
+            alignItems: "center",
+            paddingLeft: ".5rem",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          {!isside ? (
+            <span>
+              <span
+                style={{
+                  color: "#666",
+                  fontSize: "1.6rem",
+                  paddingRight: "1rem",
+                }}
+              >
+                +
+              </span>{" "}
+              <span>Add project</span>
+            </span>
+          ) : (
+            <div>+</div>
+          )}
+        </button>
       </div>
       <Modal
         title="Add project"

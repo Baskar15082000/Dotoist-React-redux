@@ -30,8 +30,25 @@ const projectSlice = createSlice({
         }
       });
     },
+    setFavorite: (state, action) => {
+      console.log(action.payload);
+      state.data.map((e) => {
+        if (e.id === action.payload) {
+          if (e.is_favorite) {
+            e.is_favorite = false;
+          } else {
+            e.is_favorite = true;
+          }
+        }
+      });
+    },
   },
 });
-export const { getProjects, addNewProject, deleteProject, editProject } =
-  projectSlice.actions;
+export const {
+  getProjects,
+  addNewProject,
+  deleteProject,
+  editProject,
+  setFavorite,
+} = projectSlice.actions;
 export default projectSlice.reducer;

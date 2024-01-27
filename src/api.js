@@ -9,6 +9,7 @@ export async function fetchProjects() {
     .catch((err) => {
       console.log(err);
     });
+  // console.log(res);
   return res;
 }
 
@@ -49,6 +50,26 @@ export async function editProjectApi(id, name) {
       "https://api.todoist.com/rest/v2/projects/" + id,
       {
         name: name,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Request-Id": uuidv4(),
+          Authorization: " Bearer 8a59fd10edc3e15c09e8d0f90cf4bf77f1d129e5",
+        },
+      }
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+}
+export async function isFavoriteProjectApi(id, state) {
+  console.log(id, state);
+  const res = await axios
+    .post(
+      "https://api.todoist.com/rest/v2/projects/" + id,
+      {
+        is_favorite: state,
       },
       {
         headers: {
