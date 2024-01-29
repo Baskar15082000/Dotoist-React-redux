@@ -30,8 +30,9 @@ const projectSlice = createSlice({
         }
       });
     },
+
     setFavorite: (state, action) => {
-      console.log(action.payload);
+  
       state.data.map((e) => {
         if (e.id === action.payload) {
           if (e.is_favorite) {

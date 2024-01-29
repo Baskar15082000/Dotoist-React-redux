@@ -3,14 +3,20 @@ import { Popover, Button } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import { PiDotsThreeOutlineThin } from "react-icons/pi";
 import { deleteProjectApi, isFavoriteProjectApi } from "../api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteProject, setFavorite } from "../features/projectSlice";
 import EditProjectPopUp from "./EditProjectPopUp";
-import { getFavoriteList } from "../features/favoriteListSlice";
+import {
+  getFavoriteList,
+  addFavoriteList,
+  removeFavoriteList,
+} from "../features/favoriteListSlice";
 
 const ProjectPopUp = ({ projectId, projectName, isfav }) => {
   const [open, setOpen] = useState(false);
   const [isfv, setIsFv] = useState(isfav);
+  const projects = useSelector((state) => state.project.data);
+
   const dispatch = useDispatch();
   function handleDelete(id) {
     deleteProjectApi(id).then((status) => {
@@ -21,13 +27,20 @@ const ProjectPopUp = ({ projectId, projectName, isfav }) => {
     setOpen(false);
   };
   function onFavorite(id) {
-    console.log(id);
-    isFavoriteProjectApi(id, true).then((res) => {
+    isFavoriteProjectApi(id, "true").then((res) => {
       hide();
-      dispatch(getFavoriteList([res]));
       dispatch(setFavorite(id));
+      dispatch(addFavoriteList(res));
     });
   }
+  function onFavoriteFalse(id) {
+    isFavoriteProjectApi(id, "false").then((res) => {
+      hide();
+      dispatch(setFavorite(id));
+      dispatch(removeFavoriteList(res));
+    });
+  }
+
   const content = (
     <div style={{ color: "black", padding: "0px" }}>
       <EditProjectPopUp
@@ -46,7 +59,10 @@ const ProjectPopUp = ({ projectId, projectName, isfav }) => {
       </p>
       <p>
         {isfv ? (
-          <Button style={{ border: "none", padding: "0" }}>
+          <Button
+            onClick={() => onFavoriteFalse(projectId)}
+            style={{ border: "none", padding: "0" }}
+          >
             remove from favorites
           </Button>
         ) : (
@@ -74,7 +90,7 @@ const ProjectPopUp = ({ projectId, projectName, isfav }) => {
         trigger="click"
         open={open}
         onOpenChange={handleOpenChange}
-        placement="topRight"
+        placement="bottomRight"
       >
         <div type="text" style={popupStyle}>
           <PiDotsThreeOutlineThin

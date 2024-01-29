@@ -3,6 +3,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 import { useSelector } from "react-redux";
+import ProjectPopUp from "./ProjectPopUp";
 
 const FavoriteList = () => {
   const [ishover, setIshover] = useState(0);
@@ -19,9 +20,8 @@ const FavoriteList = () => {
     display: " flex",
     justifyContent: "space-between",
     alignItems: "center",
-
     cursor: "pointer",
-    padding: "1rem",
+    paddingRight: "20px",
   };
   console.log(favoriteList);
   return (
@@ -36,16 +36,28 @@ const FavoriteList = () => {
         favoriteList.map((e) => {
           return (
             <div
-            onMouseOver={() => {
-              setIshover(e.id);
-            }}
-            onMouseLeave={() => {
-              setIshover(!e.id);
-            }}
-            
-            key={e.id} style={projectList}>
-              {"# "}
-              {e.name}
+              onMouseOver={() => {
+                setIshover(e.id);
+              }}
+              onMouseLeave={() => {
+                setIshover(!e.id);
+              }}
+              key={e.id}
+              style={projectList}
+            >
+              <div style={{ padding: "1rem 1rem 1rem 1rem" }}>
+                {"# "}
+                {e.name}
+              </div>
+              <div>
+                {ishover === e.id && (
+                  <ProjectPopUp
+                    projectId={e.id}
+                    projectName={e.name}
+                    isfav={e.is_favorite}
+                  />
+                )}
+              </div>
             </div>
           );
         })}

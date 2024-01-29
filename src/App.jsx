@@ -5,7 +5,8 @@ import { Content, Header } from "antd/es/layout/layout";
 import SiderBar from "./Components/SideBar";
 import Project from "./Components/Project";
 import { useSelector } from "react-redux";
-import AddProjectModal from "./Components/AddProjectModal";
+import { Routes, Route, NavLink } from "react-router-dom";
+import ProjectView from "./Components/ProjectView";
 
 function App() {
   const project = useSelector((state) => state.project.data);
@@ -18,12 +19,30 @@ function App() {
   return (
     <>
       <Layout style={{ height: "100vh" }}>
-        <SiderBar onclick={isclicked} />
+        <NavLink style={{ color: "black" }}>
+          <SiderBar />
+        </NavLink>
         <Layout>
-          <Header style={{ backgroundColor: "white" }}></Header>
-          <Content style={{ backgroundColor: "white" }}>
-            {projectClick && <Project project={project} />}
-          </Content>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Content style={{ backgroundColor: "white" }}>
+                    {projectClick && <Project project={project} />}
+                  </Content>
+                </>
+              }
+            />
+            <Route
+              path="/project/:id"
+              element={
+                <Content style={{ backgroundColor: "white" }}>
+                  <ProjectView />
+                </Content>
+              }
+            />
+          </Routes>
         </Layout>
       </Layout>
     </>

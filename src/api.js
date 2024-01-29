@@ -83,3 +83,32 @@ export async function isFavoriteProjectApi(id, state) {
     .catch((err) => console.log(err));
   return res;
 }
+export async function getProjectTaskApi() {
+  const res = await axios
+    .get(" https://api.todoist.com/rest/v2/tasks/", {
+      headers: {
+        Authorization: " Bearer 8a59fd10edc3e15c09e8d0f90cf4bf77f1d129e5",
+      },
+    })
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
+  return res;
+}
+
+export async function addTaskApi(name, description, id) {
+  const res = await axios
+    .post(
+      "https://api.todoist.com/rest/v2/tasks",
+      { content: name, project_id: id, description: description },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Request-Id": uuidv4(),
+          Authorization: " Bearer 8a59fd10edc3e15c09e8d0f90cf4bf77f1d129e5",
+        },
+      }
+    )
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
+  return res;
+}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { Input } from "antd";
-import { Button, Dropdown } from "antd";
+import { Header } from "antd/es/layout/layout";
 import { v4 as uuidv4 } from "uuid";
 import AddProjectModal from "./AddProjectModal";
 
@@ -21,6 +21,7 @@ const Project = ({ project }) => {
 
   return (
     <div style={projectstyle}>
+      <Header style={{ backgroundColor: "white" }}></Header>
       <div style={{ ...alignStyle, fontSize: "1.6rem", fontWeight: "700" }}>
         My Projects
       </div>

@@ -7,16 +7,30 @@ const favoriteListSlice = createSlice({
   initialState,
   reducers: {
     getFavoriteList: (state, action) => {
+      console.log(action.payload);
       var fav = action.payload.filter((e) => e.is_favorite);
-      fav = fav.filter(
-        (item) =>
-          !state.data.some((existingItem) => existingItem.id === item.id)
-      );
 
       console.log(state.data, fav);
-      return { ...state, data: [...state.data, ...fav] };
+      return { ...state, data: fav };
+    },
+    addFavoriteList: (state, action) => {
+      state.data.map((e) => {
+        if (action.payload.id === e.id) {
+          e.is_favorite = true;
+          return;
+        }
+      });
+      return {
+        ...state,
+        data: [...state.data, action.payload],
+      };
+    },
+    removeFavoriteList: (state, action) => {
+      var fav = state.data.filter((e) => e.id !== action.payload.id);
+      return { ...state, data: fav };
     },
   },
 });
-export const { getFavoriteList } = favoriteListSlice.actions;
+export const { getFavoriteList, addFavoriteList, removeFavoriteList } =
+  favoriteListSlice.actions;
 export default favoriteListSlice.reducer;

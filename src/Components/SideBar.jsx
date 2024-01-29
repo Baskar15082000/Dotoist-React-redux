@@ -12,7 +12,7 @@ import ProjectList from "./ProjectList";
 import AddProjectModal from "./AddProjectModal";
 import FavoriteList from "./FavoriteList";
 
-const SideBar = ({ onclick }) => {
+const SideBar = () => {
   const projects = useSelector((state) => state.project.data);
   const [isOver, setIsover] = useState(false);
   const [isclicked, setIsClicked] = useState(false);
