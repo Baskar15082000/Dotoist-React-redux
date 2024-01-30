@@ -19,9 +19,9 @@ function App() {
   return (
     <>
       <Layout style={{ height: "100vh" }}>
-        <NavLink style={{ color: "black" }}>
-          <SiderBar />
-        </NavLink>
+        {/* <NavLink style={{ color: "black" }}> */}
+        <SiderBar />
+        {/* </NavLink> */}
         <Layout>
           <Routes>
             <Route

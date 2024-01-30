@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { Popover, Button } from "antd";
 import { v4 as uuidv4 } from "uuid";
+import { Popover, Button } from "antd";
+import EditProjectPopUp from "./EditProjectPopUp";
 import { PiDotsThreeOutlineThin } from "react-icons/pi";
 import { deleteProjectApi, isFavoriteProjectApi } from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProject, setFavorite } from "../features/projectSlice";
-import EditProjectPopUp from "./EditProjectPopUp";
+import { MdDeleteForever } from "react-icons/md";
+import { GrFavorite } from "react-icons/gr";
+import { RiDislikeLine } from "react-icons/ri";
+
 import {
   getFavoriteList,
   addFavoriteList,
@@ -49,31 +53,51 @@ const ProjectPopUp = ({ projectId, projectName, isfav }) => {
         onClick={() => hide()}
         projectName={projectName}
       />
-      <p>
-        <Button
-          style={{ border: "none", padding: "0" }}
-          onClick={() => handleDelete(projectId)}
-        >
-          Delete
-        </Button>
-      </p>
-      <p>
+
+      <div>
         {isfv ? (
           <Button
             onClick={() => onFavoriteFalse(projectId)}
-            style={{ border: "none", padding: "0" }}
+            style={{
+              border: "none",
+              display: "flex",
+              alignItems: "center",
+              width: "100%",
+            }}
           >
-            remove from favorites
+            <RiDislikeLine style={{ color: "#666", fontSize: "1rem" }} />
+            <span style={{ paddingLeft: "1rem" }}>remove from favorites</span>
           </Button>
         ) : (
           <Button
             onClick={() => onFavorite(projectId)}
-            style={{ border: "none", padding: "0" }}
+            style={{
+              border: "none",
+              display: "flex",
+              alignItems: "center",
+              width: "100%",
+            }}
           >
-            add to favorites
+            <GrFavorite style={{ color: "#666", fontSize: "1rem" }} />
+
+            <span style={{ paddingLeft: "1rem" }}>add to favorites</span>
           </Button>
         )}
-      </p>
+      </div>
+      <div>
+        <Button
+          style={{
+            border: "none",
+            display: "flex",
+            alignItems: "center",
+            width: "100%",
+          }}
+          onClick={() => handleDelete(projectId)}
+        >
+          <MdDeleteForever style={{ color: "red", fontSize: "1rem" }} />
+          <span style={{ paddingLeft: "1rem" }}>Delete</span>
+        </Button>
+      </div>
     </div>
   );
 

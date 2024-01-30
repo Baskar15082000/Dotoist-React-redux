@@ -31,6 +31,7 @@ const SideBar = () => {
     padding: ".5rem .5rem .5rem .5rem",
     cursor: "pointer",
     backgroundColor: "#dc4c3e",
+    margin: "1rem 0 1rem 0",
   };
   const dropDownListStyle = {
     textAlign: "center",

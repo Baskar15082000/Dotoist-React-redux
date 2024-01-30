@@ -16,13 +16,10 @@ const projectSlice = createSlice({
       return { ...state, data: [...state.data, action.payload] };
     },
     deleteProject: (state, action) => {
-      console.log(action.payload);
       const up = state.data.filter((e) => e.id !== action.payload);
       return { ...state, data: up };
     },
     editProject: (state, action) => {
-      console.log(state.data);
-      console.log(action.payload);
       state.data.map((e) => {
         if (e.id === action.payload.id) {
           e.name = action.payload.name;
@@ -32,7 +29,6 @@ const projectSlice = createSlice({
     },
 
     setFavorite: (state, action) => {
-  
       state.data.map((e) => {
         if (e.id === action.payload) {
           if (e.is_favorite) {

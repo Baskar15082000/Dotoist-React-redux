@@ -7,10 +7,8 @@ const favoriteListSlice = createSlice({
   initialState,
   reducers: {
     getFavoriteList: (state, action) => {
-      console.log(action.payload);
       var fav = action.payload.filter((e) => e.is_favorite);
 
-      console.log(state.data, fav);
       return { ...state, data: fav };
     },
     addFavoriteList: (state, action) => {

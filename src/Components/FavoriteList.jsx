@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { useNavigate } from "react-router";
 
 import { useSelector } from "react-redux";
 import ProjectPopUp from "./ProjectPopUp";
 
 const FavoriteList = () => {
+  const Navigate = useNavigate();
   const [ishover, setIshover] = useState(0);
   const [isclicked, setIsClicked] = useState(false);
   const favoriteList = useSelector((state) => state.favorite.data);
@@ -23,7 +25,7 @@ const FavoriteList = () => {
     cursor: "pointer",
     paddingRight: "20px",
   };
-  console.log(favoriteList);
+
   return (
     <div>
       <div style={dropDownStyle}>
@@ -36,6 +38,7 @@ const FavoriteList = () => {
         favoriteList.map((e) => {
           return (
             <div
+              //  onClick={() => Navigate("/project/" + e.id)}
               onMouseOver={() => {
                 setIshover(e.id);
               }}

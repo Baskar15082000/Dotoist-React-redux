@@ -3,4 +3,7 @@
   width: 50rem;
   justify-content: space-between;
 }
-
+Button:hover {
+  background-color: rgb(212, 205, 205);
+  transition: 0.7s;
+}

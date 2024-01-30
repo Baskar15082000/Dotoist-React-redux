@@ -39,15 +39,14 @@ const AddProjectModal = ({ isside }) => {
       <div onClick={showModal}>
         <button
           style={{
-            display: "flex",
-            alignItems: "center",
-            paddingLeft: ".5rem",
+            padding: isside ? ".2px 4px .2px 4px" : "0 1rem 0 1rem",
             border: "none",
             cursor: "pointer",
+            borderRadius: "5px",
           }}
         >
           {!isside ? (
-            <span>
+            <div style={{ display: "flex", alignItems: "center" }}>
               <span
                 style={{
                   color: "#666",
@@ -58,9 +57,9 @@ const AddProjectModal = ({ isside }) => {
                 +
               </span>{" "}
               <span>Add project</span>
-            </span>
+            </div>
           ) : (
-            <div>+</div>
+            <div style={{ color: "#666" }}>+</div>
           )}
         </button>
       </div>

@@ -5,6 +5,7 @@ import { Switch } from "antd";
 import { editProject } from "../features/projectSlice";
 import { editProjectApi } from "../api";
 import { useDispatch } from "react-redux";
+import { AiOutlineEdit } from "react-icons/ai";
 const EditProjectPopUp = ({ projectName, projectId, hide }) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,12 +44,18 @@ const EditProjectPopUp = ({ projectName, projectId, hide }) => {
   return (
     <>
       <Button
-        style={{ padding: "0", border: "none" }}
+        style={{
+          border: "none",
+          display: "flex",
+          alignItems: "center",
+          width: "100%",
+        }}
         onClick={() => {
           showModal();
         }}
       >
-        Edit
+        <AiOutlineEdit style={{ color: "#666", fontSize: "1rem" }} />{" "}
+        <span style={{ marginLeft: "1rem" }}>Edit</span>
       </Button>
       <Modal
         title="Add project"
