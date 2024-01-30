@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 const ProjectList = ({ project, isside }) => {
   const [ishover, setIshover] = useState(0);
   const Navigate = useNavigate();
+  const [onc, setonc] = useState(false);
 
   var projectList = {};
   if (!isside) {
@@ -49,7 +50,11 @@ const ProjectList = ({ project, isside }) => {
                 setIshover(e.id);
               }}
               onMouseLeave={() => {
-                setIshover(!e.id);
+                if (onc) {
+                  setIshover(e.id);
+                } else {
+                  setIshover(!e.id);
+                }
               }}
             >
               <div onClick={() => Navigate("/project/" + e.id)} style={st1}>
@@ -58,9 +63,11 @@ const ProjectList = ({ project, isside }) => {
               <div>
                 {ishover === e.id && (
                   <ProjectPopUp
+                    setonc={setonc}
                     projectId={e.id}
                     projectName={e.name}
                     isfav={e.is_favorite}
+                    setIshover={setIshover}
                   />
                 )}
               </div>

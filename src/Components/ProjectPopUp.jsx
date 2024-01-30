@@ -16,7 +16,13 @@ import {
   removeFavoriteList,
 } from "../features/favoriteListSlice";
 
-const ProjectPopUp = ({ projectId, projectName, isfav }) => {
+const ProjectPopUp = ({
+  projectId,
+  projectName,
+  isfav,
+  setonc,
+  setIshover,
+}) => {
   const [open, setOpen] = useState(false);
   const [isfv, setIsFv] = useState(isfav);
   const projects = useSelector((state) => state.project.data);
@@ -27,30 +33,28 @@ const ProjectPopUp = ({ projectId, projectName, isfav }) => {
       dispatch(deleteProject(id));
     });
   }
-  const hide = () => {
-    setOpen(false);
-  };
+
   function onFavorite(id) {
     isFavoriteProjectApi(id, "true").then((res) => {
-      hide();
       dispatch(setFavorite(id));
       dispatch(addFavoriteList(res));
     });
   }
   function onFavoriteFalse(id) {
     isFavoriteProjectApi(id, "false").then((res) => {
-      hide();
       dispatch(setFavorite(id));
       dispatch(removeFavoriteList(res));
     });
   }
 
   const content = (
-    <div style={{ color: "black", padding: "0px" }}>
+    <div
+      style={{ color: "black", padding: "0px" }}
+      onClick={() => setonc(false)}
+    >
       <EditProjectPopUp
-        hide={hide}
+        hide={() => hide}
         projectId={projectId}
-        onClick={() => hide()}
         projectName={projectName}
       />
 
@@ -101,25 +105,33 @@ const ProjectPopUp = ({ projectId, projectName, isfav }) => {
     </div>
   );
 
-  const handleOpenChange = (newOpen) => {
-    setOpen(newOpen);
-  };
   const popupStyle = {
     border: "none",
   };
+  const handleOpenChange = (newOpen) => {
+    setOpen(newOpen);
+    if (!newOpen) {
+      console.log("jfjsfk");
+      setonc(false);
+      setIshover(0);
+    }
+  };
+
   return (
     <div>
       <Popover
         content={content}
         trigger="click"
-        open={open}
-        onOpenChange={handleOpenChange}
         placement="bottomRight"
+        onOpenChange={handleOpenChange}
       >
         <div type="text" style={popupStyle}>
           <PiDotsThreeOutlineThin
             className="three_btn"
-            style={{ fontSize: "1.2rem", hover: "none" }}
+            style={{
+              fontSize: "1.2rem",
+            }}
+            onClick={() => setonc(true)}
           />
         </div>
       </Popover>

@@ -28,7 +28,7 @@ const ProjectView = () => {
   const [taskName, setTaskName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id: id } = useParams();
   const [onhover, setOnHover] = useState(false);
   const projectTask = useSelector((state) => state.projectTask.data);
   const [isHoverPOpUp, setIsHoverPOpup] = useState(false);
@@ -44,7 +44,7 @@ const ProjectView = () => {
           dispatch(getProjectTask({ res, id }))
         );
       });
-  }, []);
+  }, [id]);
 
   function onchange(e) {
     setTaskName(e.target.value);

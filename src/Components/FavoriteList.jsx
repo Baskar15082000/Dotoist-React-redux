@@ -38,7 +38,7 @@ const FavoriteList = () => {
         favoriteList.map((e) => {
           return (
             <div
-              //  onClick={() => Navigate("/project/" + e.id)}
+              //   onClick={() => Navigate("/project/" + e.id)}
               onMouseOver={() => {
                 setIshover(e.id);
               }}
