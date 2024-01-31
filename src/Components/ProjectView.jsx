@@ -8,11 +8,13 @@ import {
   addTask,
   editTask,
   completeTask,
+  deleteTask,
 } from "../features/projectTaskSlice";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addTaskApi,
   completeTaskApi,
+  deleteTaskApi,
   editTaskApi,
   getProjectName,
   getProjectTaskApi,
@@ -34,6 +36,8 @@ const ProjectView = () => {
   const projectTask = useSelector((state) => state.projectTask.data);
   const [isHoverPOpUp, setIsHoverPOpup] = useState(false);
   const [projectName, setProjectName] = useState("");
+  const [projectId, setProjectId] = useState(id);
+  const [taskId, setTaskId] = useState(0);
 
   useEffect(() => {
     getProjectName(id)
@@ -55,21 +59,31 @@ const ProjectView = () => {
   }
   function onsubmit() {
     if (taskName !== "") {
+      console.log("s");
       addTaskApi(taskName, taskDescription, id).then((res) =>
         dispatch(addTask(res))
       );
+
       setTaskName("");
       setTaskDescription("");
     }
   }
   function onsubmitEdit(taskId) {
     if (taskName !== "") {
-      editTaskApi(taskId, id, taskName, taskDescription).then((res) => {
-        dispatch(editTask(res));
-        setTaskName("");
-        setTaskDescription("");
-        setIsclickedEdit(false);
-      });
+      if (projectId === id) {
+        editTaskApi(taskId, id, taskName, taskDescription).then((res) => {
+          dispatch(editTask(res));
+        });
+      } else if (projectId !== id) {
+        console.log("no");
+        if (taskId !== 0) {
+          deleteTaskApi(taskId).then(dispatch(deleteTask(taskId)));
+          addTaskApi(taskName, taskDescription, projectId);
+        }
+      }
+      setTaskName("");
+      setTaskDescription("");
+      setIsclickedEdit(false);
     }
   }
 
@@ -110,7 +124,7 @@ const ProjectView = () => {
                   display: "flex",
                   padding: ".5rem 0 .5rem 0 ",
                   marginBottom: "1rem",
-                  borderBottom: "solid 1px",
+                  borderBottom: "solid 1px rgb(212, 205, 205)",
                 }}
                 onMouseOver={() => setIsHoverPOpup(e.id)}
                 onMouseLeave={() => setIsHoverPOpup(!e.id)}
@@ -161,11 +175,12 @@ const ProjectView = () => {
                             value={taskDescription}
                             style={{ border: "none" }}
                           />
-                          <div>
+                          <div style={{ display: "flex", width: "100%" }}>
                             <Button onClick={() => onsubmitEdit(e.id)}>
                               save
                             </Button>{" "}
                             <Button
+                              style={{ marginLeft: "1rem" }}
                               onClick={() => {
                                 setIsclickedEdit(false);
                                 setTaskName("");
@@ -174,7 +189,12 @@ const ProjectView = () => {
                             >
                               cancel
                             </Button>
-                            <MoveProject projectName={projectName} />
+                            <MoveProject
+                              setProjectId={setProjectId}
+                              setTaskId={setTaskId}
+                              taskId={e.id}
+                              projectName={projectName}
+                            />
                           </div>
                         </div>
                       ) : (
@@ -185,12 +205,17 @@ const ProjectView = () => {
                       <TaskPopUp
                         onEditTask={onEditTask}
                         id={e.id}
+                        setProjectId={setProjectId}
+                        setTaskId={setTaskId}
+                        projectName={projectName}
                         name={e.content}
                         description={e.description}
                       />
                     )}
                   </div>
-                  <div>{!isclickedEdit && e.description}</div>
+                  <div style={{ color: "#666" }}>
+                    {!isclickedEdit && e.description}
+                  </div>
                 </div>
               </div>
             );

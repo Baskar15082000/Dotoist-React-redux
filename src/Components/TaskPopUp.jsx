@@ -6,8 +6,17 @@ import { useDispatch } from "react-redux";
 import { deleteTask } from "../features/projectTaskSlice";
 import { AiOutlineEdit } from "react-icons/ai";
 import { MdDeleteForever } from "react-icons/md";
+import MoveProject from "./MoveProject";
 
-const TaskPopUp = ({ onEditTask, id, name, description }) => {
+const TaskPopUp = ({
+  onEditTask,
+  id,
+  name,
+  description,
+  setProjectId,
+  setTaskId,
+  projectName,
+}) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const hide = () => {
@@ -38,6 +47,14 @@ const TaskPopUp = ({ onEditTask, id, name, description }) => {
           <AiOutlineEdit style={{ color: "#666", fontSize: "1rem" }} />{" "}
           <span style={{ marginLeft: "1rem" }}>Edit</span>
         </Button>
+      </div>
+      <div>
+        <MoveProject
+          setProjectId={setProjectId}
+          setTaskId={setTaskId}
+          taskId={id}
+          projectName={projectName}
+        />
       </div>
       <div>
         <Button

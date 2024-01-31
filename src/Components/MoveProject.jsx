@@ -1,33 +1,32 @@
 import React, { useEffect } from "react";
 import { Select, Space } from "antd";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addTaskApi, deleteTaskApi, moveTaskToProjectApi } from "../api";
+import { deleteTask } from "../features/projectTaskSlice";
 
-const MoveProject = ({ projectName }) => {
+const MoveProject = ({ setProjectId, taskId, setTaskId, projectName }) => {
   const project = useSelector((state) => state.project.data);
-  // useEffect(() => {
-  //   fetchProjects().then((res) => {
-  //     dispatch(getProjects(res));
-  //   });
-  // }, []);
+  const dispatch = useDispatch();
 
-  const handleProvinceChange = (value) => {
-    setCities(cityData[value]);
-    setSecondCity(cityData[value][0]);
+  const handleProvinceChange = (value, label) => {
+    console.log(value);
+    setProjectId(value);
+    setTaskId(taskId);
   };
 
   return (
-    <div>
+    <div style={{ marginLeft: "auto" }}>
       <Space wrap>
         <Select
-          defaultValue={projectName}
+          defaultValue={"# " + projectName}
           style={{
             width: 120,
           }}
           onChange={handleProvinceChange}
           options={project.map((e) => ({
-            label: e.name,
-            value: e.name,
+            label: "# " + e.name,
+            value: e.id,
           }))}
         />
       </Space>
