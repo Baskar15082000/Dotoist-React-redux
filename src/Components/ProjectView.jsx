@@ -181,9 +181,9 @@ const ProjectView = () => {
                       {isclickedEdit === e.id ? (
                         <div
                           style={{
-                            border: "solid 1px #666",
+                            border: "solid 1px rgb(212, 205, 205)",
                             width: "50rem",
-                            borderRadius: "5px",
+                            borderRadius: "10px",
                             padding: "1rem",
                           }}
                         >
@@ -240,7 +240,7 @@ const ProjectView = () => {
                       />
                     )}
                   </div>
-                  <div style={{ color: "#666" }}>
+                  <div style={{ color: "#666", padding: ".5rem 0 0 0" }}>
                     {!isclickedEdit && e.description}
                   </div>
                 </div>
@@ -252,13 +252,16 @@ const ProjectView = () => {
             style={{ cursor: "pointer", margin: " 1rem 0rem 0rem 0" }}
             onClick={() => setIsclicked(true)}
           >
-            <span style={{ color: "red" }}>+</span> <span>Add task</span>
+            <span style={{ color: "red", paddingRight: ".5rem" }}>+</span>{" "}
+            <span style={{ color: "rgb(212, 205, 205)", fontWeight: "bold" }}>
+              Add task
+            </span>
           </div>
           {isclicked && (
             <div
               style={{
-                border: "solid 1px  #666 ",
-                borderRadius: "5px",
+                border: "solid 1px  rgb(212, 205, 205) ",
+                borderRadius: "10px",
                 padding: "1rem",
                 marginTop: "1rem",
               }}

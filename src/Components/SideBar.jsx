@@ -30,7 +30,7 @@ const SideBar = () => {
     justifyContent: "space-between",
     padding: ".5rem .5rem .5rem .5rem",
     cursor: "pointer",
-    backgroundColor: "#dc4c3e",
+    backgroundColor: "#ffaaa1",
     margin: "1rem 0 1rem 0",
   };
   const dropDownListStyle = {

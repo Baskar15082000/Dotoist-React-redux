@@ -41,7 +41,7 @@ const ProjectList = ({ project, isside }) => {
             <div
               style={{
                 ...projectList,
-                backgroundColor: ishover === e.id ? "#faf8f7" : "transparent",
+                backgroundColor: ishover === e.id ? "#f6efee" : "transparent",
                 margin: ".5rem",
                 borderRadius: "5px",
               }}

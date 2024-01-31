@@ -16,14 +16,14 @@ const FavoriteList = () => {
     justifyContent: "space-between",
     padding: ".5rem .5rem .5rem .5rem",
     cursor: "pointer",
-    backgroundColor: "#dc4c3e",
+    backgroundColor: "#ffaaa1",
   };
   const projectList = {
     display: " flex",
     justifyContent: "space-between",
     alignItems: "center",
     cursor: "pointer",
-    paddingRight: "20px",
+    paddingRight: "1rem",
   };
 
   return (
@@ -34,38 +34,43 @@ const FavoriteList = () => {
           {isclicked ? <IoIosArrowDown /> : <MdKeyboardArrowRight />}
         </div>
       </div>
-      {isclicked &&
-        favoriteList.map((e) => {
-          return (
-            <div
-              onMouseOver={() => {
-                setIshover(e.id);
-              }}
-              onMouseLeave={() => {
-                setIshover(!e.id);
-              }}
-              key={e.id}
-              style={projectList}
-            >
+      <div style={{ padding: ".5rem" }}>
+        {isclicked &&
+          favoriteList.map((e) => {
+            return (
               <div
-                style={{ padding: "1rem 40% 1rem 1rem" }}
-                onClick={() => Navigate("/project/" + e.id)}
+                onMouseOver={() => {
+                  setIshover(e.id);
+                }}
+                onMouseLeave={() => {
+                  setIshover(!e.id);
+                }}
+                key={e.id}
+                style={{
+                  ...projectList,
+                  backgroundColor: ishover === e.id ? "#f6efee" : "transparent",
+                }}
               >
-                {"# "}
-                {e.name}
+                <div
+                  style={{ padding: ".5rem 40% .5rem 1rem" }}
+                  onClick={() => Navigate("/project/" + e.id)}
+                >
+                  {"# "}
+                  {e.name}
+                </div>
+                <div>
+                  {ishover === e.id && (
+                    <ProjectPopUp
+                      projectId={e.id}
+                      projectName={e.name}
+                      isfav={e.is_favorite}
+                    />
+                  )}
+                </div>
               </div>
-              <div>
-                {ishover === e.id && (
-                  <ProjectPopUp
-                    projectId={e.id}
-                    projectName={e.name}
-                    isfav={e.is_favorite}
-                  />
-                )}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+      </div>
     </div>
   );
 };
