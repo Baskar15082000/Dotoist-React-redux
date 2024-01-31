@@ -39,7 +39,9 @@ const SideBar = () => {
   };
   return (
     <Sider style={{ backgroundColor: "#faf8f7" }}>
-      <div>Baskar</div>
+      <div style={{ margin: "1rem 0rem 2rem .5rem", fontSize: "1rem" }}>
+        Baskar
+      </div>
       <FavoriteList />
       <div
         style={dropDownStyle}

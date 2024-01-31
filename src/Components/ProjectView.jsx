@@ -20,6 +20,7 @@ import {
 import { IoIosCheckmark } from "react-icons/io";
 import { Breadcrumb } from "antd";
 import TaskPopUp from "./TaskPopUp";
+import MoveProject from "./MoveProject";
 
 const ProjectView = () => {
   const Navigate = useNavigate();
@@ -28,7 +29,7 @@ const ProjectView = () => {
   const [taskName, setTaskName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const dispatch = useDispatch();
-  const { id: id } = useParams();
+  const { id } = useParams();
   const [onhover, setOnHover] = useState(false);
   const projectTask = useSelector((state) => state.projectTask.data);
   const [isHoverPOpUp, setIsHoverPOpup] = useState(false);
@@ -173,6 +174,7 @@ const ProjectView = () => {
                             >
                               cancel
                             </Button>
+                            <MoveProject projectName={projectName} />
                           </div>
                         </div>
                       ) : (

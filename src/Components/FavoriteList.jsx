@@ -38,7 +38,6 @@ const FavoriteList = () => {
         favoriteList.map((e) => {
           return (
             <div
-              //   onClick={() => Navigate("/project/" + e.id)}
               onMouseOver={() => {
                 setIshover(e.id);
               }}
@@ -48,7 +47,10 @@ const FavoriteList = () => {
               key={e.id}
               style={projectList}
             >
-              <div style={{ padding: "1rem 1rem 1rem 1rem" }}>
+              <div
+                style={{ padding: "1rem 40% 1rem 1rem" }}
+                onClick={() => Navigate("/project/" + e.id)}
+              >
                 {"# "}
                 {e.name}
               </div>
