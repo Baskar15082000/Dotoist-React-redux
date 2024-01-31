@@ -13,12 +13,12 @@ export async function fetchProjects() {
   return res;
 }
 
-export async function addProject(name) {
+export async function addProject(name,state) {
   const res = await axios
     .post(
       "https://api.todoist.com/rest/v2/projects",
       {
-        name: name,
+        name: name,is_favorite:state,
       },
       {
         headers: {

@@ -9,7 +9,7 @@ import { deleteProject, setFavorite } from "../features/projectSlice";
 import { MdDeleteForever } from "react-icons/md";
 import { GrFavorite } from "react-icons/gr";
 import { RiDislikeLine } from "react-icons/ri";
-
+import { useNavigate } from "react-router";
 import {
   getFavoriteList,
   addFavoriteList,
@@ -18,6 +18,7 @@ import {
 
 const ProjectPopUp = ({
   projectId,
+  project,
   projectName,
   isfav,
   setonc,
@@ -26,11 +27,13 @@ const ProjectPopUp = ({
   const [open, setOpen] = useState(false);
   const [isfv, setIsFv] = useState(isfav);
   const projects = useSelector((state) => state.project.data);
+  const Navigate = useNavigate();
 
   const dispatch = useDispatch();
   function handleDelete(id) {
     deleteProjectApi(id).then((status) => {
       dispatch(deleteProject(id));
+      dispatch(removeFavoriteList(project));
     });
   }
 
@@ -96,7 +99,10 @@ const ProjectPopUp = ({
             alignItems: "center",
             width: "100%",
           }}
-          onClick={() => handleDelete(projectId)}
+          onClick={() => {
+            handleDelete(projectId);
+            Navigate("/");
+          }}
         >
           <MdDeleteForever style={{ color: "red", fontSize: "1rem" }} />
           <span style={{ paddingLeft: "1rem" }}>Delete</span>

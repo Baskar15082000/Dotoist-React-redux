@@ -65,6 +65,7 @@ const ProjectList = ({ project, isside }) => {
                   <ProjectPopUp
                     setonc={setonc}
                     projectId={e.id}
+                    project={e}
                     projectName={e.name}
                     isfav={e.is_favorite}
                     setIshover={setIshover}

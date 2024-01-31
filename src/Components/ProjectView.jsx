@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { Button, Input } from "antd";
 import { useNavigate } from "react-router";
 import { Header } from "antd/es/layout/layout";
+import { notification } from "antd";
 import {
   getProjectTask,
   addTask,
@@ -36,8 +37,9 @@ const ProjectView = () => {
   const projectTask = useSelector((state) => state.projectTask.data);
   const [isHoverPOpUp, setIsHoverPOpup] = useState(false);
   const [projectName, setProjectName] = useState("");
-  const [projectId, setProjectId] = useState(id);
   const [taskId, setTaskId] = useState(0);
+  var tid = 0;
+  const [projectId, setProjectId] = useState(id);
 
   useEffect(() => {
     getProjectName(id)
@@ -49,6 +51,7 @@ const ProjectView = () => {
           dispatch(getProjectTask({ res, id }))
         );
       });
+    setProjectId(id);
   }, [id]);
 
   function onchange(e) {
@@ -59,10 +62,16 @@ const ProjectView = () => {
   }
   function onsubmit() {
     if (taskName !== "") {
-      console.log("s");
-      addTaskApi(taskName, taskDescription, id).then((res) =>
-        dispatch(addTask(res))
-      );
+      if (projectId === id) {
+        addTaskApi(taskName, taskDescription, id).then((res) =>
+          dispatch(addTask(res))
+        );
+      } else if (projectId !== id) {
+        console.log("no");
+        if (taskId !== 0) {
+          addTaskApi(taskName, taskDescription, projectId);
+        }
+      }
 
       setTaskName("");
       setTaskDescription("");
@@ -92,8 +101,19 @@ const ProjectView = () => {
     setTaskName(name);
     setTaskDescription(description);
   }
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotification = (placement) => {
+    api.info({
+      message: `Notification`,
+      description: "1 task completed!",
+      placement,
+    });
+  };
+
   function completeTaskFunction(taskid) {
     completeTaskApi(taskid).then((res) => dispatch(completeTask(taskid)));
+    openNotification("bottomLeft");
   }
   return (
     <div>
@@ -117,6 +137,9 @@ const ProjectView = () => {
         </div>
         <div style={{ width: "50rem" }}>
           {projectTask.map((e) => {
+            {
+              tid = e.id;
+            }
             return (
               <div
                 key={e.id}
@@ -129,6 +152,7 @@ const ProjectView = () => {
                 onMouseOver={() => setIsHoverPOpup(e.id)}
                 onMouseLeave={() => setIsHoverPOpup(!e.id)}
               >
+                {contextHolder}
                 {!isclickedEdit && (
                   <div
                     style={{
@@ -157,7 +181,7 @@ const ProjectView = () => {
                       {isclickedEdit === e.id ? (
                         <div
                           style={{
-                            border: "solid 1px",
+                            border: "solid 1px #666",
                             width: "50rem",
                             borderRadius: "5px",
                             padding: "1rem",
@@ -176,25 +200,27 @@ const ProjectView = () => {
                             style={{ border: "none" }}
                           />
                           <div style={{ display: "flex", width: "100%" }}>
-                            <Button onClick={() => onsubmitEdit(e.id)}>
-                              save
-                            </Button>{" "}
-                            <Button
-                              style={{ marginLeft: "1rem" }}
-                              onClick={() => {
-                                setIsclickedEdit(false);
-                                setTaskName("");
-                                setTaskDescription("");
-                              }}
-                            >
-                              cancel
-                            </Button>
                             <MoveProject
                               setProjectId={setProjectId}
                               setTaskId={setTaskId}
                               taskId={e.id}
                               projectName={projectName}
                             />
+                            <div style={{ marginLeft: "auto" }}>
+                              <Button onClick={() => onsubmitEdit(e.id)}>
+                                save
+                              </Button>{" "}
+                              <Button
+                                style={{ marginLeft: "1rem" }}
+                                onClick={() => {
+                                  setIsclickedEdit(false);
+                                  setTaskName("");
+                                  setTaskDescription("");
+                                }}
+                              >
+                                cancel
+                              </Button>
+                            </div>
                           </div>
                         </div>
                       ) : (
@@ -210,6 +236,7 @@ const ProjectView = () => {
                         projectName={projectName}
                         name={e.content}
                         description={e.description}
+                        projectId={id}
                       />
                     )}
                   </div>
@@ -228,7 +255,14 @@ const ProjectView = () => {
             <span style={{ color: "red" }}>+</span> <span>Add task</span>
           </div>
           {isclicked && (
-            <div>
+            <div
+              style={{
+                border: "solid 1px  #666 ",
+                borderRadius: "5px",
+                padding: "1rem",
+                marginTop: "1rem",
+              }}
+            >
               <Input
                 placeholder="Task Name"
                 onChange={onchange}
@@ -241,9 +275,17 @@ const ProjectView = () => {
                 value={taskDescription}
                 style={{ border: "none" }}
               />
-              <div>
-                <Button onClick={onsubmit}>add</Button>{" "}
-                <Button onClick={() => setIsclicked(false)}>cancle</Button>
+              <div style={{ display: "flex" }}>
+                <MoveProject
+                  setProjectId={setProjectId}
+                  setTaskId={setTaskId}
+                  taskId={tid}
+                  projectName={projectName}
+                />
+                <div style={{ marginLeft: "auto" }}>
+                  <Button onClick={onsubmit}>add</Button>{" "}
+                  <Button onClick={() => setIsclicked(false)}>cancle</Button>
+                </div>
               </div>
             </div>
           )}

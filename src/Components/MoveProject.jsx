@@ -16,7 +16,7 @@ const MoveProject = ({ setProjectId, taskId, setTaskId, projectName }) => {
   };
 
   return (
-    <div style={{ marginLeft: "auto" }}>
+    <div>
       <Space wrap>
         <Select
           defaultValue={"# " + projectName}

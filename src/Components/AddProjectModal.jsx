@@ -5,6 +5,7 @@ import { Switch } from "antd";
 import { addNewProject } from "../features/projectSlice";
 import { addProject } from "../api";
 import { useDispatch } from "react-redux";
+import { addFavoriteList } from "../features/favoriteListSlice";
 const AddProjectModal = ({ isside }) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,7 +23,13 @@ const AddProjectModal = ({ isside }) => {
     console.log(projectName);
   }
   function onsumbit() {
-    addProject(projectName).then((res) => dispatch(addNewProject(res)));
+    addProject(projectName, isToggled).then((res) => {
+      dispatch(addNewProject(res));
+      if (isToggled) {
+        dispatch(addFavoriteList(res));
+      }
+    });
+
     setIsModalOpen(false);
     setProjectName("");
   }
@@ -30,9 +37,11 @@ const AddProjectModal = ({ isside }) => {
 
   const handleToggle = (checked) => {
     setIsToggled(checked);
+    // console.log(checked);
   };
   const toggleStyle = {
     display: "flex",
+    margin: "1rem 0 0 0",
   };
   return (
     <>
@@ -73,12 +82,10 @@ const AddProjectModal = ({ isside }) => {
       >
         <p>Name</p>
         <Input value={projectName} onChange={onchangeName} />
-        <div>
-          <p>Color</p>
-        </div>
+
         <div style={toggleStyle}>
           <Switch checked={isToggled} onChange={handleToggle} />
-          <div>add to favorites</div>
+          <div style={{ marginLeft: "2rem" }}>add to favorites</div>
         </div>
       </Modal>
     </>

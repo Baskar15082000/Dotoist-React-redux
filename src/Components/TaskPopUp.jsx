@@ -6,19 +6,20 @@ import { useDispatch } from "react-redux";
 import { deleteTask } from "../features/projectTaskSlice";
 import { AiOutlineEdit } from "react-icons/ai";
 import { MdDeleteForever } from "react-icons/md";
-import MoveProject from "./MoveProject";
+
+import MoveTask from "./MoveTask";
 
 const TaskPopUp = ({
   onEditTask,
   id,
   name,
   description,
-  setProjectId,
-  setTaskId,
-  projectName,
+
+  projectId,
 }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+
   const hide = () => {
     setOpen(false);
   };
@@ -32,40 +33,33 @@ const TaskPopUp = ({
   function handleDelete(id) {
     deleteTaskApi(id).then(() => dispatch(deleteTask(id)));
   }
+  const buttonStyle = {
+    border: "none",
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+  };
   const content = (
     <div style={{ color: "black" }}>
       <div>
         <Button
           onClick={() => onEditTask(id, name, description)}
-          style={{
-            border: "none",
-            display: "flex",
-            alignItems: "center",
-            width: "100%",
-          }}
+          style={buttonStyle}
         >
           <AiOutlineEdit style={{ color: "#666", fontSize: "1rem" }} />{" "}
           <span style={{ marginLeft: "1rem" }}>Edit</span>
         </Button>
       </div>
-      <div>
-        <MoveProject
-          setProjectId={setProjectId}
-          setTaskId={setTaskId}
-          taskId={id}
-          projectName={projectName}
+      <div style={{ display: "flex" }}>
+        <MoveTask
+          id={id}
+          projectId={projectId}
+          name={name}
+          description={description}
         />
       </div>
       <div>
-        <Button
-          onClick={() => handleDelete(id)}
-          style={{
-            border: "none",
-            display: "flex",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
+        <Button onClick={() => handleDelete(id)} style={buttonStyle}>
           <MdDeleteForever style={{ color: "red", fontSize: "1rem" }} />
           <span style={{ paddingLeft: "1rem" }}>Delete</span>
         </Button>
