@@ -52,7 +52,7 @@ const FavoriteList = () => {
                 }}
               >
                 <div
-                  style={{ padding: ".5rem 40% .5rem 1rem" }}
+                  style={{ padding: ".5rem 40% .5rem .5rem" }}
                   onClick={() => Navigate("/project/" + e.id)}
                 >
                   {"# "}
