@@ -56,7 +56,7 @@ const ProjectPopUp = ({
       onClick={() => setonc(false)}
     >
       <EditProjectPopUp
-        hide={() => hide}
+        // hide={() => hide}
         projectId={projectId}
         projectName={projectName}
       />
@@ -117,7 +117,7 @@ const ProjectPopUp = ({
   const handleOpenChange = (newOpen) => {
     setOpen(newOpen);
     if (!newOpen) {
-      console.log("jfjsfk");
+      //console.log("jfjsfk");
       setonc(false);
       setIshover(0);
     }
@@ -129,7 +129,7 @@ const ProjectPopUp = ({
         content={content}
         trigger="click"
         placement="bottomRight"
-        onOpenChange={handleOpenChange}
+        //  onOpenChange={handleOpenChange}
       >
         <div type="text" style={popupStyle}>
           <PiDotsThreeOutlineThin
